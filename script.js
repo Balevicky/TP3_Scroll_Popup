@@ -7,17 +7,26 @@
 // Faire apparaitre la popup quand on est en bas du site
 
 // Bonus : quand on clicke sur la popup elle disparait pour toujours
+// =====================================
+let playonce = true;
+let scrollPosition = 0;
+
 window.addEventListener("scroll", () => {
+  // =========Navbar========
   console.log(window.scrollY);
   if (window.scrollY > 300) {
     navbar.style.height = "40px";
   } else {
     navbar.style.height = "90px";
   }
+  // =========image========
+  scrollPosition =
+    (window.scrollY + window.innerHeight) / document.body.offsetHeight;
+  console.log(scrollPosition);
 
-  if (window.scrollY > 400) {
+  if (scrollPosition > 0.5) {
     imgImprovise.style.opacity = "1";
-    imgImprovise.style.transform = "translateX(0px)";
+    imgImprovise.style.transform = "none";
   } else {
     imgImprovise.style.opacity = "0";
     imgImprovise.style.transform = "translateX(-200px)";
@@ -25,15 +34,18 @@ window.addEventListener("scroll", () => {
 
   // console.log(window.innerHeight);
 
-  if (!document.getElementById("popup")) {
-  } else {
-    if (window.scrollY > 1200) {
-      popup.style.opacity = "1";
-      popup.style.transform = "translateX(0px)";
-    }
+  // =========popup========
+
+  if (window.scrollY > 0.9 && playonce) {
+    popup.style.opacity = "1";
+    popup.style.transform = "translateX(0px)";
+    playonce = false;
   }
 });
-// ============ fermer le pop
-window.addEventListener("click", () => {
-  popup.remove();
+// ============ fermer le popup
+closeBtn.addEventListener("click", () => {
+  // console.log("test");
+  popup.style.opacity = "1";
+  popup.style.transform = "translateX(600px)";
+ 
 });
